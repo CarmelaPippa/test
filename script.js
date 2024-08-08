@@ -61,41 +61,41 @@ formEl.addEventListener("submit", function (event) {
     });
 });
 
-// function submitForm() {
-//   var checkBox = document.getElementById("accept");
-//   if (!checkBox.checked) {
-//     alert("Please accept the Term of Use and Privacy Policy.");
-//     return; // Prevent further execution of the function
-//   }
-//   var name = document.getElementById("name").value;
-//   var email = document.getElementById("email").value;
-//   var gender = document.getElementById("gender").value;
-//   var commentsSelect = document.getElementById("commentsSelect").value;
-//   var location = document.getElementById("location").value;
-//   var other = document.getElementById("other").value;
+function submitForm() {
+  var checkBox = document.getElementById("accept");
+  if (!checkBox.checked) {
+    alert("Please accept the Term of Use and Privacy Policy.");
+    return; // Prevent further execution of the function
+  }
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var gender = document.getElementById("gender").value;
+  var commentsSelect = document.getElementById("commentsSelect").value;
+  var location = document.getElementById("location").value;
+  var other = document.getElementById("other").value;
 
-//   var checkboxes = document.querySelectorAll(
-//     'input[name="feedbackSelect"]:checked'
-//   );
-//   var feedbackSelect = [];
-//   checkboxes.forEach(function (checkbox) {
-//     feedbackSelect.push(checkbox.value);
-//   });
+  var checkboxes = document.querySelectorAll(
+    'input[name="feedbackSelect"]:checked'
+  );
+  var feedbackSelect = [];
+  checkboxes.forEach(function (checkbox) {
+    feedbackSelect.push(checkbox.value);
+  });
 
-//   sidebar.style.display = "none";
-//   mapEl.style.display = "none";
-//   overlayEl.style.display = "flex";
+  sidebar.style.display = "none";
+  mapEl.style.display = "none";
+  overlayEl.style.display = "flex";
 
-//   google.script.run.onSubmitForm({
-//     name: name,
-//     email: email,
-//     gender: gender,
-//     commentsSelect: commentsSelect,
-//     location: location,
-//     other: other,
-//     feedbackSelect: feedbackSelect,
-//   });
-// }
+  google.script.run.onSubmitForm({
+    name: name,
+    email: email,
+    gender: gender,
+    commentsSelect: commentsSelect,
+    location: location,
+    other: other,
+    feedbackSelect: feedbackSelect,
+  });
+}
 
 // Add new pin and refresh page
 function redirectTo(url) {
