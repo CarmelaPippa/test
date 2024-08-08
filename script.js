@@ -34,52 +34,73 @@ function styleSidebar(element) {
   element.style.justifyContent = "center";
 }
 
-function submitForm() {
-  var checkBox = document.getElementById("accept");
-  if (!checkBox.checked) {
-    alert("Please accept the Term of Use and Privacy Policy.");
-    return; // Prevent further execution of the function
-  }
-  var name = document.getElementById("name").value;
-  var email = document.getElementById("email").value;
-  var gender = document.getElementById("gender").value;
-  var commentsSelect = document.getElementById("commentsSelect").value;
-  var location = document.getElementById("location").value;
-  var other = document.getElementById("other").value;
+formEl.addEventListener("submit", function (event) {
+  event.preventDefault();
+  let formData = new FormData(this);
 
-  var checkboxes = document.querySelectorAll(
-    'input[name="feedbackSelect"]:checked'
-  );
-  var feedbackSelect = [];
-  checkboxes.forEach(function (checkbox) {
-    feedbackSelect.push(checkbox.value);
+  let data = {};
+  formData.forEach(function (value, key) {
+    data[key] = value;
   });
 
-  sidebar.style.display = "none";
-  mapEl.style.display = "none";
-  overlayEl.style.display = "flex";
+  fetch(
+    "https://script.google.com/macros/s/AKfycbzAdiTP0jWO6Mj5THG1OJuBUv_aFR8YxFJHkZZY20ctn-IloBDQnTDytSCPllzSSnTZbw/exec",
+    {
+      method: "POST",
+      body: JSON.stringify(data),
+    }
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
+      // Gestisci la risposta di successo
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      // Gestisci gli errori
+    });
+});
 
-  google.script.run.onSubmitForm({
-    name: name,
-    email: email,
-    gender: gender,
-    commentsSelect: commentsSelect,
-    location: location,
-    other: other,
-    feedbackSelect: feedbackSelect,
-  });
-}
+// function submitForm() {
+//   var checkBox = document.getElementById("accept");
+//   if (!checkBox.checked) {
+//     alert("Please accept the Term of Use and Privacy Policy.");
+//     return; // Prevent further execution of the function
+//   }
+//   var name = document.getElementById("name").value;
+//   var email = document.getElementById("email").value;
+//   var gender = document.getElementById("gender").value;
+//   var commentsSelect = document.getElementById("commentsSelect").value;
+//   var location = document.getElementById("location").value;
+//   var other = document.getElementById("other").value;
 
+//   var checkboxes = document.querySelectorAll(
+//     'input[name="feedbackSelect"]:checked'
+//   );
+//   var feedbackSelect = [];
+//   checkboxes.forEach(function (checkbox) {
+//     feedbackSelect.push(checkbox.value);
+//   });
+
+//   sidebar.style.display = "none";
+//   mapEl.style.display = "none";
+//   overlayEl.style.display = "flex";
+
+//   google.script.run.onSubmitForm({
+//     name: name,
+//     email: email,
+//     gender: gender,
+//     commentsSelect: commentsSelect,
+//     location: location,
+//     other: other,
+//     feedbackSelect: feedbackSelect,
+//   });
+// }
+
+// Add new pin and refresh page
 function redirectTo(url) {
   window.open(url, "_blank");
 }
-
-//  function onNewPinButtonClick() {
-//     google.script.run.withSuccessHandler(function(url){
-//       window.open(url, '_top');
-//     })
-//     .getScriptURL();
-//   }
 
 function onNewPinButtonClick() {
   // Disabilita il pulsante e mostra l'indicatore di caricamento
