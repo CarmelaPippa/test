@@ -61,6 +61,18 @@ formEl.addEventListener("submit", function (event) {
     });
 });
 
+// Fetch the API key from the server and load the Google Maps script
+fetch("/api/maps-key")
+  .then((response) => response.json())
+  .then((data) => {
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${data.key}&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+  })
+  .catch((error) => console.error("Error fetching the API key:", error));
+
 function submitForm() {
   var checkBox = document.getElementById("accept");
   if (!checkBox.checked) {
